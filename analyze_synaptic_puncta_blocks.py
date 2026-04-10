@@ -164,7 +164,7 @@ def main():
         for file in files:
             if not file.lower().endswith((".tif", ".tiff")):
                 continue
-            if "_matched_log" not in file.lower():
+            if "_log" not in file.lower():
                 continue
 
             input_path = os.path.join(root_dir, file)
