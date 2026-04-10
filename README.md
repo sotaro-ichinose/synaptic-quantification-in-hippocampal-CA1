@@ -12,7 +12,12 @@ This repository contains scripts and supporting data for the analysis presented 
   Main folder includes `.py` (analysis script) necessary to reproduce the corresponding figure.
   
 - `LICENSE.md`:  
-  MIT license for code, and CC BY 4.0 license for data.
+MIT license for code, and CC BY 4.0 license for data.
+
+- `ResNet-example.zip`:  
+This archive provides an example dataset for testing the ResNet classification workflow.
+It contains 256 × 256 pixel images in PNG format, organized in ImageFolder structure with four classes: Other, SO, SR, and SLM.
+These example images are intended to demonstrate the expected input format and can be used to quickly verify that the training and classification scripts run correctly.
 
 ---
 
