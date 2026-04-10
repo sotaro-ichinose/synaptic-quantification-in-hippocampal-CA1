@@ -18,53 +18,32 @@ This repository contains scripts and supporting data for the analysis presented 
 
 ## How to use
 
-- `Automated layer classification using ResNet`
+- `ResNet classification`
 
-First, prepare the dataset in the standard ImageFolder format, where each class is stored in a separate subdirectory:
+First, organize the dataset in standard ImageFolder format, with each class stored in a separate subfolder under the main dataset directory.
+When the script is run, a dialog window will appear prompting the user to select this dataset folder, which is then used as the input for training and validation.
 
-dataset/
-├── class1/
-│   ├── img1.tif
-│   ├── img2.tif
-│   └── ...
-├── class2/
-│   ├── img1.tif
-│   └── ...
+The script automatically resizes all images to 224 × 224 pixels, normalizes them, and splits the dataset into training and validation subsets. It then trains a ResNet-34 model from scratch using the specified training parameters and evaluates classification performance on the validation set.
 
-Each subfolder name will be treated as a class label.
+The trained model, loss curve, and confusion matrix are saved automatically in the models folder. In addition, a classification report including precision, recall, and F1-score for each class is printed in the console, allowing the overall performance of the classifier to be assessed.
 
-Next, run the script. A dialog window will appear prompting you to select the dataset directory.
-Please choose the root folder containing the class subdirectories.
+- `ResNet classification`
 
-The script will then automatically:
+First, organize the additional training dataset in standard ImageFolder format, with each class stored in a separate subfolder under the main dataset directory.
+When the script is run, a dialog window will appear prompting the user to select this dataset folder, which is then used as the input for fine-tuning.
 
-Resize all images to 224 × 224 pixels
-Normalize pixel values (mean = 0.5, std = 0.5 for each channel)
-Split the dataset into training and validation sets (default: 85% / 15%)
-Train a ResNet-34 model from scratch
-Evaluate the model on the validation set
+The script automatically resizes all images to 224 × 224 pixels, normalizes them, and loads the previously trained ResNet-34 model from the models folder. It then performs additional training on the selected dataset using the specified fine-tuning parameters.
 
-The following outputs will be generated in the models directory:
-
-resnet34_trained.pth
-→ trained model weights and metadata (class names, number of classes)
-loss_curve.eps
-→ training and validation loss curves
-confusion_matrix.eps
-→ confusion matrix for validation predictions
-
-In addition, a classification report (precision, recall, F1-score) will be printed in the console.
-
-A ResNet-34 model was trained using an ImageFolder-formatted dataset, with images resized to 224 × 224 pixels and normalized. The dataset was randomly split into training and validation subsets (85%/15%), and the model was trained using the Adam optimizer with a learning rate of 1 × 10⁻⁴. Performance was evaluated on the validation set using classification metrics and a confusion matrix.
+After fine-tuning, the updated model weights are saved by overwriting the existing checkpoint file (resnet34_trained.pth). Training loss for each epoch is printed in the console, allowing the progress of fine-tuning to be monitored.
 
 - `synapse quantification`
 
 First, place the 16-bit two-channel TIFF image(s) in the main folder.
-When apply_log_filter_multichannel.py is run and the folder is selected, a new subfolder named LoG_output is automatically generated.
+When apply_log_filter_multichannel.py is run and the folder is selected, a new subfolder named LoG_output is automatically generated, containing the processed output images for subsequent analysis.
 
-Within LoG_output, manually create a subfolder called ref, and save the RGB merged versions of the corresponding two-channel TIFF image(s) in this folder. These reference images are used in the subsequent manual segmentation step.
+Within LoG_output, manually create a subfolder called ref, and save the RGB merged versions of the corresponding two-channel TIFF image(s) in this folder. These reference images are used to visually identify laminar boundaries and serve as guides for the manual segmentation step in the next stage of the analysis.
 
-Then, run analyze_synaptic_puncta_blocks.py. A graphical window will open, allowing the user to draw segmented lines manually. Please proceed according to the displayed instructions.
+Then, run analyze_synaptic_puncta_blocks.py. A graphical window will open, allowing the user to draw segmented lines manually according to the displayed instructions. Based on the defined boundaries, the script assigns each 256 × 256 pixel block to a laminar region and quantifies puncta number and area in each channel using threshold-based particle detection. The results are automatically saved as CSV files for each channel in the corresponding output folder.
 
 ---
 
