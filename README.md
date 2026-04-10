@@ -18,7 +18,7 @@ This repository contains scripts and supporting data for the analysis presented 
 
 ## How to use
 
-- `ResNet classification`
+## 🔹ResNet classification
 
 First, organize the dataset in standard ImageFolder format, with each class stored in a separate subfolder under the main dataset directory.
 When the script is run, a dialog window will appear prompting the user to select this dataset folder, which is then used as the input for training and validation.
@@ -27,7 +27,7 @@ The script automatically resizes all images to 224 × 224 pixels, normalizes the
 
 The trained model, loss curve, and confusion matrix are saved automatically in the models folder. In addition, a classification report including precision, recall, and F1-score for each class is printed in the console, allowing the overall performance of the classifier to be assessed.
 
-- `ResNet classification`
+## 🔹ResNet fine-tuning
 
 First, organize the additional training dataset in standard ImageFolder format, with each class stored in a separate subfolder under the main dataset directory.
 When the script is run, a dialog window will appear prompting the user to select this dataset folder, which is then used as the input for fine-tuning.
@@ -36,7 +36,7 @@ The script automatically resizes all images to 224 × 224 pixels, normalizes the
 
 After fine-tuning, the updated model weights are saved by overwriting the existing checkpoint file (resnet34_trained.pth). Training loss for each epoch is printed in the console, allowing the progress of fine-tuning to be monitored.
 
-- `synapse quantification`
+## 🔹 synapse quantification
 
 First, place the 16-bit two-channel TIFF image(s) in the main folder.
 When apply_log_filter_multichannel.py is run and the folder is selected, a new subfolder named LoG_output is automatically generated, containing the processed output images for subsequent analysis.
@@ -49,7 +49,7 @@ Then, run analyze_synaptic_puncta_blocks.py. A graphical window will open, allow
 
 ## License
 
-### 🔹 Code
+## 🔹 Code
 
 All Python scripts (`.py`) in this repository are licensed under the [MIT License](LICENSE.md).  
 You are free to use, modify, and redistribute the code with attribution.
